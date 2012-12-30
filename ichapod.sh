@@ -98,7 +98,7 @@ set -e
 				feedurl=$podcast;
 			fi #now we pull & process the feed items from the current podcast feed we are processing.
 			echo "$(date +\%m-\%d-\%I:\%M\%p): Now working on $label-$label2-$feedurl.">>"$debuglog";
-			xsltproc $processorfile $feedurl>/tmp/ichapodtmp.log;
+			wget -O - -q $feedurl | tr -d '\n\r' | xsltproc $processorfile - >/tmp/ichapodtmp.log;
 			while read episode
 			do
 				# This is the loop that processes each episode within a podcast.
